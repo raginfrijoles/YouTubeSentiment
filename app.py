@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 #add username, add about page
 
+
 @app.route("/", methods=('POST', 'GET'))
 def index():
     return render_template('index.html')
@@ -22,9 +23,9 @@ def results():
 
     if "v" in captured_value:
         commentList = ytcomment.getcomments(captured_value["v"][0], maxComments)
-        if commentList != None:
-            results = ytcomment.sentimentanalysis(commentList)
-            return render_template('results.html', comments=results["comments"], yturl=url)
+        if commentList:
+            ytresults = ytcomment.sentimentanalysis(commentList)
+            return render_template('results.html', comments=ytresults["comments"], yturl=url)
         else:
             return render_template('results.html', error="No available comments. Please try another video.")
     else:

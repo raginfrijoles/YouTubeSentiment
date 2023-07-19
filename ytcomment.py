@@ -1,10 +1,9 @@
-import math
 import os
 import googleapiclient.discovery
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-def getcomments(video, maxComments):
+def getcomments(video, maxcomments):
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
     try:
@@ -20,7 +19,7 @@ def getcomments(video, maxComments):
         request = youtube.commentThreads().list(
             part="snippet",
             order="relevance",
-            maxResults=maxComments,
+            maxResults=maxcomments,
             videoId=video
         )
         response = request.execute()
@@ -30,6 +29,7 @@ def getcomments(video, maxComments):
         return commentList
     except:
         return None
+
 
 def sentimentanalysis(comments):
     sentiment = SentimentIntensityAnalyzer()
