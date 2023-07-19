@@ -2,10 +2,10 @@
     {% block content %}
         {% if comments %}
             <div class="btn-group mt-3" role="group" aria-label="Basic example">
-                <button id="posfilter" type="button" class="btn btn-primary">Pos</button>
-                <button id="negfilter" type="button" class="btn btn-primary">Neg</button>
-                <button id="neufilter" type="button" class="btn btn-primary">Neu</button>
-                <button id="allfilter" type="button" class="btn btn-primary">All</button>
+                <button id="allfilter" type="button" class="btn btn-light">All</button>
+                <button id="negfilter" type="button" class="btn btn-light">Neg</button>
+                <button id="neufilter" type="button" class="btn btn-light">Neu</button>
+                <button id="posfilter" type="button" class="btn btn-light">Pos</button>
             </div>
         {% endif %}
         {% for c in comments %}
