@@ -1,0 +1,1 @@
+YouTube Sentiment analyzes YouTube comments using the VADER sentiment analysis model.

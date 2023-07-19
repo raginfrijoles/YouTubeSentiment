@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+    {% block content %}
+        {% if comments %}
+            <div class="btn-group mt-3" role="group" aria-label="Basic example">
+                <button id="posfilter" type="button" class="btn btn-primary">Pos</button>
+                <button id="negfilter" type="button" class="btn btn-primary">Neg</button>
+                <button id="neufilter" type="button" class="btn btn-primary">Neu</button>
+                <button id="allfilter" type="button" class="btn btn-primary">All</button>
+            </div>
+        {% endif %}
+        {% for c in comments %}
+            <div class="{{ c['overall'] }} card mt-3 shadow-sm">
+                <div class="card-body">
+                    <p>{{ c["comment"] }}</p>
+                    <p class="fw-semibold">Compound: {{ c["compound"] }}</p>
+                    <p class="fw-lighter">Neg: {{ c["neg"] }}, Neu: {{ c["neu"] }}, Pos: {{ c["pos"] }}</p>
+
+                </div>
+                <div class="progress-stacked custom-bar">
+                    <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="{{c['negpercent']}}" aria-valuemin="0" aria-valuemax="100" style="width: {{c['negpercent']}}%">
+                        <div class="progress-bar bg-danger"></div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="{{c['pospercent']}}" aria-valuemin="0" aria-valuemax="100" style="width: {{c['pospercent']}}%">
+                        <div class="progress-bar bg-success"></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endblock %}
