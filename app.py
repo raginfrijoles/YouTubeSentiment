@@ -25,7 +25,7 @@ def results():
         commentList = ytcomment.getcomments(captured_value["v"][0], maxComments)
         if commentList:
             ytresults = ytcomment.sentimentanalysis(commentList)
-            return render_template('results.html', comments=ytresults["comments"], yturl=url)
+            return render_template('results.html', comments=ytresults["comments"], yturl=url, compoundAvg=ytresults["compoundAvg"], overall=ytresults["overallsentiment"], sentimentcolor=ytresults["sentimentcolor"])
         else:
             return render_template('results.html', error="No available comments. Please try another video.")
     else:

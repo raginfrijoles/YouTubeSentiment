@@ -33,12 +33,13 @@ def getcomments(video, maxcomments):
 
 def sentimentanalysis(comments):
     sentiment = SentimentIntensityAnalyzer()
-    results = {"compoundAvg": 0, "comments": []}
+    results = {"compoundAvg": 0, "comments": [], "overallsentiment": "Neutral", "sentimentcolor": "text-secondary"}
     for comment in comments:
 
         score = sentiment.polarity_scores(comment)
 
         score["comment"] = comment
+        score["overall"] = "neu"
         neg = abs(score["neg"])
         pos = score["pos"]
         compound = score["compound"]
@@ -55,13 +56,18 @@ def sentimentanalysis(comments):
             score["overall"] = "pos"
         elif compound < 0:
             score["overall"] = "neg"
-        else:
-            score["overall"] = "neu"
 
         results["compoundAvg"] += score["compound"]
         results["comments"].append(score)
 
-    results["compoundAvg"] = results["compoundAvg"]/len(results["comments"])
+    results["compoundAvg"] = round(results["compoundAvg"]/len(results["comments"]), 3)
+
+    if results["compoundAvg"] > 0:
+        results["overallsentiment"] = "Positive"
+        results["sentimentcolor"] = "text-success"
+    elif results["compoundAvg"] < 0:
+        results["overallsentiment"] = "Negative"
+        results["sentimentcolor"] = "text-danger"
 
     return results
 

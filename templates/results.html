@@ -1,13 +1,17 @@
 {% extends 'index.html' %}
     {% block content %}
         {% if comments %}
-            <div class="btn-group mt-3" role="group" aria-label="Basic example">
+            <div class="btn-group mt-3 mb-3" role="group" aria-label="Basic example">
                 <button id="allfilter" type="button" class="btn btn-light">All</button>
                 <button id="negfilter" type="button" class="btn btn-light">Neg</button>
                 <button id="neufilter" type="button" class="btn btn-light">Neu</button>
                 <button id="posfilter" type="button" class="btn btn-light">Pos</button>
             </div>
         {% endif %}
+        <div class="row">
+            <h4>Overall Sentiment: <span class="{{ sentimentcolor }}">{{ overall }} ({{ compoundAvg }})</span></h4>
+        </div>
+
         {% for c in comments %}
             <div class="{{ c['overall'] }} card mt-3 shadow-sm">
                 <div class="card-body">
