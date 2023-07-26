@@ -3,9 +3,10 @@ import googleapiclient.discovery
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-def getcomments(video, maxcomments):
+def getcomments(video, maxcomments, nextPage=""):
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
+
     try:
         os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -20,14 +21,24 @@ def getcomments(video, maxcomments):
             part="snippet",
             order="relevance",
             maxResults=maxcomments,
-            videoId=video
+            videoId=video,
+            pageToken=nextPage
         )
+
         response = request.execute()
         commentList = []
+
         for comment in response["items"]:
             commentList.append(comment["snippet"]["topLevelComment"]["snippet"]["textOriginal"])
+
+        if int(maxcomments) > 100 and "nextPageToken" in response:
+            nextpagecomments = getcomments(video, 1000, nextPage=response["nextPageToken"])
+            commentList.extend(nextpagecomments)
+
         return commentList
-    except:
+
+    except Exception as e:
+        print(e)
         return None
 
 

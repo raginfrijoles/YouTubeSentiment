@@ -7,10 +7,10 @@
                 <button id="neufilter" type="button" class="btn btn-light">Neu</button>
                 <button id="posfilter" type="button" class="btn btn-light">Pos</button>
             </div>
-        {% endif %}
         <div class="row">
             <h4>Overall Sentiment: <span class="{{ sentimentcolor }}">{{ overall }} ({{ compoundAvg }})</span></h4>
         </div>
+        {% endif %}
 
         {% for c in comments %}
             <div class="{{ c['overall'] }} card mt-3 shadow-sm">
